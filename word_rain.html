@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Word Rain</title>
+        <style>
+            span
+            {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-size: xx-large;
+            }
+        </style>
+        <script>
+            // Define an array of words to display
+            var words = [  "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon",  "mango", "nectarine", "orange", "pear", "quince", "raspberry", "strawberry", "tangerine", "watermelon", "apricot",  "blueberry", "coconut", "dragonfruit", "eggplant", "fennel", "ginger", "hazelnut", "jalapeno", "kumquat", "lychee",  "mandarin", "nutmeg", "olive", "pineapple", "quinoa", "radish", "spinach", "tumeric", "umami", "vanilla",  "walnut", "xigua", "yam", "zucchini", "avocado", "broccoli", "carrot", "daikon", "endive", "fennel",  "grapefruit", "honey", "iceberg", "jicama", "kale", "leek", "mushroom", "napa", "okra", "parsnip",  "quince", "rhubarb", "shallot", "taro", "udon", "vinaigrette", "wasabi", "xanthan", "yucca", "zest",  "almond", "blackberry", "celery", "date", "elderflower", "feta", "grapefruit", "horseradish", "icicle", "jackfruit",  "kohlrabi", "lavender", "mache", "nectar", "olive oil", "pomegranate", "queso", "radicchio", "sunflower", "tangelo",  "umeboshi", "verjus", "wakame", "xigua", "yellowfin", "zinfandel", "artichoke", "beet", "chicory", "dill",  "endive", "fava", "garlic", "huckleberry", "italian parsley", "jujube", "kumquat", "lentil", "mango", "nopal",  "oyster", "papaya", "quinoa", "rosemary", "sweet potato", "tangerine", "urad", "violet", "watercress", "xmas",  "yellow squash", "ziti"];
+
+            // Define a function that generates a random word from the array
+            function getRandomWord() {
+                var randomIndex = Math.floor(Math.random() * words.length);
+                return words[randomIndex];
+            }
+
+            // Define a function that creates a new word element and adds it to the container
+            function createWordElement() {
+                // Create a new span element with a random word
+                var word = getRandomWord();
+                var wordElement = document.createElement("span");
+                wordElement.innerHTML = word;
+
+                // Set the CSS style properties for the word element
+                wordElement.style.position = "absolute";
+                wordElement.style.top = "0";
+                wordElement.style.right = "30";
+                wordElement.style.left = Math.floor(Math.random() * (window.innerWidth)) + "px";
+
+                // Add the word element to the container
+                document.getElementById("word-rain-container").appendChild(wordElement);
+            }
+
+            // Define a function that animates the word elements
+            function animateWordElements() {
+                // Get all of the word elements in the container
+                var wordElements = document.getElementsByTagName("span");
+
+                // Loop through each word element and animate it
+                for (var i = 0; i < wordElements.length; i++) {
+                    var wordElement = wordElements[i];
+                    var currentTop = parseInt(wordElement.style.top);
+                    var newTop = currentTop + 7;
+                    wordElement.style.top = newTop + "px";
+
+                    // Remove the word element if it goes off the bottom of the screen
+                    if (newTop > (window.innerHeight - 40)) {
+                    wordElement.parentNode.removeChild(wordElement);
+                    }
+                }
+            }
+
+            // Call the createWordElement function every 400ms to add new words to the screen
+            setInterval(createWordElement, 400);
+
+            // Call the animateWordElements function every 50ms to animate the words on the screen
+            setInterval(animateWordElements, 50);
+        </script>
+    </head>
+    <body>
+        <div id="word-rain-container"></div>
+    </body>
+</html>
